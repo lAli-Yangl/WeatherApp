@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/weatherImage"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:src="@drawable/sun"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/forecast_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/weatherImage"
+        app:layout_constraintTop_toTopOf="@id/weatherImage"
+        app:layout_constraintBottom_toBottomOf="@id/weatherImage"
+        tools:text="Jan 31" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/forecast_Date"
+        app:layout_constraintTop_toTopOf="@+id/weatherImage"
+        app:layout_constraintBottom_toBottomOf="@id/forecast_Date"
+        tools:text="Temp: 80°" />
+
+    <TextView
+        android:id="@+id/sunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintEnd_toEndOf="@id/sunset"
+        app:layout_constraintStart_toEndOf="@id/min_temp"
+        app:layout_constraintTop_toTopOf="@+id/weatherImage"
+        app:layout_constraintBottom_toBottomOf="@id/forecast_Date"
+        tools:text="Sunrise: 8:00am" />
+
+    <TextView
+        android:id="@+id/sunset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintStart_toEndOf="@id/min_temp"
+        app:layout_constraintTop_toBottomOf="@id/temperature"
+        app:layout_constraintBottom_toBottomOf="@+id/weatherImage"
+        tools:text="Sunset: 9:00pm" />
+
+    <TextView
+        android:id="@+id/min_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/max_temp"
+        app:layout_constraintTop_toBottomOf="@id/temperature"
+        app:layout_constraintBottom_toBottomOf="@+id/weatherImage"
+        tools:text="Low: 80°" />
+
+
+    <TextView
+        android:id="@+id/max_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/forecast_Date"
+        app:layout_constraintTop_toBottomOf="@id/temperature"
+        app:layout_constraintBottom_toBottomOf="@id/weatherImage"
+        tools:text="High: 80°" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
