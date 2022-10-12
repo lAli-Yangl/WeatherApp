@@ -4,10 +4,10 @@ package com.example.weatherapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.R.*
+import com.example.weatherapp.R.id
+import com.example.weatherapp.R.layout
 
 class ForecastAdapter(private val data: List<DayForecast>) :
     RecyclerView.Adapter<ForecastViewHolder>() {
@@ -49,9 +49,9 @@ class ForecastViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(data: DayForecast) {
         forecastDate.text = data.getDate()
-        forecastTemp.text = data.temp.getCurrent()
-        forecastHigh.text = data.temp.getMax()
-        forecastLow.text = data.temp.getMin()
+        forecastTemp.text = data.forecastTemp.getMin()
+        forecastHigh.text = data.forecastTemp.getMax()
+        forecastLow.text = data.forecastTemp.getMin()
         forecastSunrise.text = data.getSunriseTime()
         forecastSunset.text = data.getSunsetTime()
     }
