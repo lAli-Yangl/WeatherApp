@@ -5,27 +5,25 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.weatherapp.databinding.FragmentForecastBinding
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 
-val forecastTemperature1 = ForecastTemp(42.0f, 61.0f, 58.2f)
-val forecastTemperature2 = ForecastTemp(50.0f, 69.0f, 65.2f)
-val forecastTemperature3 = ForecastTemp(51.0f, 73.0f, 60.25f)
-val forecastTemperature4 = ForecastTemp(49.5f, 71.7f, 70.1f)
-val forecastTemperature5 = ForecastTemp(50.3f, 79.2f, 80.3f)
-val forecastTemperature6 = ForecastTemp(72.4f, 99.1f, 90.5f)
-val forecastTemperature7 = ForecastTemp(70.4f, 99.0f, 80.4f)
-val forecastTemperature8 = ForecastTemp(69.5f, 80.1f, 75.1f)
-val forecastTemperature9 = ForecastTemp(65.5f, 90.5f, 79.4f)
-val forecastTemperature10 = ForecastTemp(50.4f, 80f, 73.4f)
-val forecastTemperature11 = ForecastTemp(32.1f, 85.4f, 73.9f)
-val forecastTemperature12 = ForecastTemp(0.0f, 80.4f, 32.4f)
-val forecastTemperature13 = ForecastTemp(10.5f, 55.7f, 40.5f)
-val forecastTemperature14 = ForecastTemp(23.1f, 100.5f, 40.5f)
-val forecastTemperature15 = ForecastTemp(43.0f, 109.5f, 99.5f)
-val forecastTemperature16 = ForecastTemp(90.6f, 115.5f, 111.5f)
+
+val forecastTemperature1 = ForecastTemp(42.0f, 61.0f)
+val forecastTemperature2 = ForecastTemp(50.0f, 69.0f)
+val forecastTemperature3 = ForecastTemp(51.0f, 73.0f)
+val forecastTemperature4 = ForecastTemp(49.5f, 71.7f)
+val forecastTemperature5 = ForecastTemp(50.3f, 79.2f)
+val forecastTemperature6 = ForecastTemp(72.4f, 99.1f)
+val forecastTemperature7 = ForecastTemp(70.4f, 99.0f)
+val forecastTemperature8 = ForecastTemp(69.5f, 80.1f)
+val forecastTemperature9 = ForecastTemp(65.5f, 90.5f)
+val forecastTemperature10 = ForecastTemp(50.4f, 80f)
+val forecastTemperature11 = ForecastTemp(32.1f, 85.4f)
+val forecastTemperature12 = ForecastTemp(0.0f, 80.4f)
+val forecastTemperature13 = ForecastTemp(10.5f, 55.7f)
+val forecastTemperature14 = ForecastTemp(23.1f, 100.5f)
+val forecastTemperature15 = ForecastTemp(43.0f, 109.5f)
+val forecastTemperature16 = ForecastTemp(90.6f, 115.5f)
 
 val forecastData: List<DayForecast> = listOf<DayForecast>(
     DayForecast(1664648040L, 1664622000L, 1664672400L, forecastTemperature1, 3.5f, 100),

@@ -11,14 +11,13 @@ data class DayForecast(
     val date: Long,
     val sunrise: Long,
     val sunset: Long,
-    val temp: ForecastTemp,
+    val forecastTemp: ForecastTemp,
     val pressure: Float,
     val humidity: Int,
 ) : Parcelable {
 
     private val dateTimestamp = this.date
     private val formatter = DateTimeFormatter.ofPattern("MMM dd")
-    //private val formatter = DateTimeFormatter.ofPattern("MMM dd")
     private val dateTime = LocalDateTime.ofEpochSecond(dateTimestamp, 0, ZoneOffset.of("-5"))
     private val formattedDate = formatter.format(dateTime)
 
@@ -45,4 +44,3 @@ data class DayForecast(
     }
 
 }
-
