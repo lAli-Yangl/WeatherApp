@@ -1,5 +1,5 @@
 package com.example.weatherapp.ui
-
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +19,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.weatherapp.*
+import com.example.weatherapp.ForecastTemp
+import com.example.weatherapp.R
+import com.example.weatherapp.models.DayForecast
+import com.example.weatherapp.toHourMinute
+import com.example.weatherapp.toMonth
 
 
 val startDay = 1664648040L
@@ -37,13 +42,21 @@ val forecastData = (0 until 16).map {
 
 }
 
+
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ForecastScreen() {
-    LazyColumn {
-        items(items = forecastData) { item: DayForecast ->
-            ForecastRow(item = item)
+    Scaffold(
+        topBar = { AppBar(title = stringResource(id = R.string.app_name)) }
+    ) {
+        LazyColumn {
+            items(items = forecastData) { item: DayForecast ->
+                ForecastRow(item = item)
+            }
         }
     }
+
 }
 
 @Composable
@@ -77,7 +90,7 @@ private fun ForecastRow(item: DayForecast) {
         Spacer(Modifier.weight(.05f, fill = true))
         Column (
             horizontalAlignment = Alignment.End
-                ){
+        ){
             Text(
                 text = stringResource(id = R.string.sunrise, item.sunrise.toHourMinute()),
                 style = textStyle

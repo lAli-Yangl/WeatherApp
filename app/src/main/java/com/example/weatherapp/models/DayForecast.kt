@@ -1,6 +1,7 @@
-package com.example.weatherapp
+package com.example.weatherapp.models
 
 import android.os.Parcelable
+import com.example.weatherapp.ForecastTemp
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import java.time.ZoneOffset
