@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R.id
 import com.example.weatherapp.R.layout
+import com.example.weatherapp.models.DayForecast
 
 class ForecastAdapter(private val data: List<DayForecast>) :
     RecyclerView.Adapter<ForecastViewHolder>() {
