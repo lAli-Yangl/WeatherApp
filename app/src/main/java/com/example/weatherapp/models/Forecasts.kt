@@ -4,15 +4,17 @@ import com.squareup.moshi.Json
 
 
 data class ForecastTemperatures(
-    @Json(name = "max") val maxTemperature: String,
-    @Json(name = "min") val minTemperature: String,
+    @Json(name = "max") val maxTemperature: Float,
+    @Json(name = "min") val minTemperature: Float,
 )
 
 
-data class DateTime(
+data class ForecastsData(
     @Json(name = "dt") val date: Long,
     @Json(name = "sunrise") val sunrise: Long,
     @Json(name = "sunset") val sunset: Long,
+    @Json(name = "temp") val temperatures: ForecastTemperatures,
+    @Json(name = "weather") val weatherIconImage: List<WeatherIcon>,
 
 )
 
@@ -22,7 +24,7 @@ data class WeatherIcon(
 
 
 data class Forecasts(
-    @Json(name = "list") val timeData: List<DateTime>,
-    @Json(name = "weather") val weatherIconImage: List<WeatherIcon>,
-    @Json(name = "temp") val temperatures: ForecastTemperatures,
+    @Json(name = "list") val DailyForecastData: List<ForecastsData>,
+
+
 )

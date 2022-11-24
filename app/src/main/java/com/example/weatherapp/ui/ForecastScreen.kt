@@ -1,66 +1,58 @@
 package com.example.weatherapp.ui
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapp.ForecastTemp
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.example.weatherapp.R
-import com.example.weatherapp.models.DayForecast
+import com.example.weatherapp.models.ForecastsData
 import com.example.weatherapp.toHourMinute
 import com.example.weatherapp.toMonth
 
 
-val startDay = 1664648040L
-val sunrise = 1664622000L
-val sunset = 1664672400L
-
-val forecastData = (0 until 16).map {
-    DayForecast(
-        date = startDay + (it * (24 * 60 * 60)),
-        sunrise = sunrise + (it * (5 * 60 )),
-        sunset = sunset - (it * (5 * 60)),
-        forecastTemp = ForecastTemp(min = 70f + it, max = 80f + it),
-        pressure = 1024f,
-        humidity = 76
-    )
-
-}
-
-
-
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ForecastScreen() {
+fun ForecastScreen(
+    viewModel: ForecastsViewModel = hiltViewModel(),
+) {
+    val state by viewModel.forecastsTemps.collectAsState(initial = null)
+
+    LaunchedEffect(Unit){
+         viewModel.fetchData()
+    }
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.app_name)) }
     ) {
-        LazyColumn {
-            items(items = forecastData) { item: DayForecast ->
-                ForecastRow(item = item)
+        state?.let {
+            LazyColumn {
+                items(items = it.DailyForecastData) { item: ForecastsData ->
+                    ForecastRow(item = item)
+                }
             }
         }
     }
-
 }
 
 @Composable
-private fun ForecastRow(item: DayForecast) {
+private fun ForecastRow(item:ForecastsData) {
     Row(
         modifier = Modifier.background(Color.White),
         verticalAlignment = Alignment.CenterVertically,
@@ -68,7 +60,15 @@ private fun ForecastRow(item: DayForecast) {
         val textStyle = TextStyle(
             fontSize = 13.sp,
         )
-        Image(painter = painterResource(id = R.drawable.sun), contentDescription = "")
+        val iconUrl = String.format(String.format(
+            "https://openweathermap.org/img/wn/%s@2x.png",
+            item.weatherIconImage.firstOrNull()?.iconName
+        ))
+        AsyncImage(
+            model = iconUrl,
+            contentDescription = "null",
+            modifier = Modifier.size(100.dp),
+        )
         Spacer(Modifier.weight(.01f, fill = true))
         Text(
             text = item.date.toMonth(),
@@ -79,11 +79,11 @@ private fun ForecastRow(item: DayForecast) {
         Spacer(Modifier.weight(.02f, fill = true))
         Column {
             Text(
-                text = stringResource(id = R.string.high, item.forecastTemp.max.toInt()),
+                 text = stringResource(id = R.string.high, item.temperatures.maxTemperature.toInt()),
                 style = textStyle
             )
             Text(
-                text = stringResource(id = R.string.low, item.forecastTemp.min.toInt()),
+                text = stringResource(id = R.string.low,  item.temperatures.minTemperature.toInt()),
                 style = textStyle
             )
         }
@@ -103,14 +103,14 @@ private fun ForecastRow(item: DayForecast) {
     }
 
 }
-
-@Preview(
-    "ForecastTempFragment",
-    device = Devices.PIXEL_4,
-    showBackground = true,
-    showSystemUi = true,
-)
-@Composable
-private fun ForecastRowPreview() {
-    ForecastRow(item = forecastData[0])
-}
+//
+//@Preview(
+//    "ForecastTempFragment",
+//    device = Devices.PIXEL_4,
+//    showBackground = true,
+//    showSystemUi = true,
+//)
+//@Composable
+//private fun ForecastRowPreview() {
+//    ForecastRow(item = forecastData[0])
+//}

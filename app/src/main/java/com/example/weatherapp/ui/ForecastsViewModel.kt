@@ -16,7 +16,7 @@ class ForecastsViewModel @Inject constructor(private val api: OpenWeatherMapApi)
 
     public val forecastsTemps: Flow<Forecasts> = _forecasts.receiveAsFlow()
 
-    fun fetchForecast() = runBlocking {
+    fun fetchData() = runBlocking {
         val forecastsTemps = api.getForecastTemperatures("55444")
         _forecasts.trySend(forecastsTemps)
 
