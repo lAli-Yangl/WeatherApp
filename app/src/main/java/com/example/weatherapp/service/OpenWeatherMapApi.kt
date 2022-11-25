@@ -34,10 +34,10 @@ interface OpenWeatherMapApi {
     suspend fun getForecastTemperatures(
         @Query("lat") latitude: Float,
         @Query("lon") longitude: Float,
+        @Query("cnt") dayCount: Int  = 16,
         @Query("appid") apiKey: String = "d91797be752bdc1ac77680daee3dc9c4",
         @Query("units") unit: String = "imperial"
     ) : Forecasts
-
 
 }
 
