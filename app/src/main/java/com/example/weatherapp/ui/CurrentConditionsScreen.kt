@@ -23,27 +23,35 @@ import androidx.lifecycle.LifecycleOwner
 import coil.compose.AsyncImage
 import com.example.weatherapp.R
 import com.example.weatherapp.models.CurrentConditions
+import com.example.weatherapp.models.LatitudeLongitude
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun CurrentConditions(
+    latitudeLongitude: LatitudeLongitude?,
     viewModel: CurrentConditionsViewModel = hiltViewModel(),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    onGetWeatherForMyLocationClick: () -> Unit,
     onForecastButtonClick: () -> Unit
 ) {
     val state by viewModel.currentConditions.collectAsState(initial = null)
 
-    LaunchedEffect(Unit){
-        viewModel.fetchData()
+    if (latitudeLongitude != null) {
+        LaunchedEffect(Unit) {
+            viewModel.fetchCurrentLocationData(latitudeLongitude)
+        }
+    } else {
+        LaunchedEffect(Unit){
+            viewModel.fetchData()
+        }
     }
+
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.app_name)) }
     ) {
         state?.let {
-            CurrentConditionsContent(it) {
-                onForecastButtonClick()
-            }
+            CurrentConditionsContent(it, onGetWeatherForMyLocationClick, onForecastButtonClick)
         }
     }
 }
@@ -52,6 +60,7 @@ fun CurrentConditions(
 @Composable
 private fun CurrentConditionsContent(
     currentConditions: CurrentConditions,
+    onGetWeatherForMyLocationClick: () -> Unit,
     onForecastButtonClick: () -> Unit,
 ) {
     Column(
@@ -59,7 +68,7 @@ private fun CurrentConditionsContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(id = R.string.city_name),
+            text = currentConditions.cityName,
             style = TextStyle(
                 fontWeight = FontWeight(600),
                 fontSize = 24.sp
@@ -120,6 +129,11 @@ private fun CurrentConditionsContent(
             Text(text = stringResource(id = R.string.forecast))
 
         }
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = onGetWeatherForMyLocationClick) {
+            Text(text = stringResource(id = R.string.get_my_weather_for_my_location))
+
+        }
 
     }
 }
@@ -129,5 +143,4 @@ private fun CurrentConditionsContent(
 )
 @Composable
 fun CurrentConditionsScreenPreview() {
-    CurrentConditions {}
 }
