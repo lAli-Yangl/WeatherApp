@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.weatherapp.databinding.FragmentForecastBinding
-
+import com.example.weatherapp.models.DayForecast
 
 
 val forecastTemperature1 = ForecastTemp(42.0f, 61.0f)
